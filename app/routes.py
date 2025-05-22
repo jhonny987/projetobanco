@@ -13,28 +13,28 @@ def get_db():
     finally:
         db.close()
 
-# Rota para criar um item
-@router.post("/items/", response_model=schemas.ItemOut)
-def create_item(item: schemas.ItemCreate, db: Session = Depends(get_db)):
-    return crud.create_item(db=db, item=item)
+# Rota para criar um cliente
+@router.post("/clientes/", response_model=schemas.ClienteOut)
+def create_cliente(cliente: schemas.ClienteCreate, db: Session = Depends(get_db)):
+    return crud.create_cliente(db=db, cliente=cliente)
 
 # Rota para listar todos os itens
-@router.get("/items/", response_model=list[schemas.ItemOut])
-def list_items(db: Session = Depends(get_db)):
-    return crud.get_items(db)
+@router.get("/clientes/", response_model=list[schemas.ClienteOut])
+def list_clientes(db: Session = Depends(get_db)):
+    return crud.get_clientes(db)
 
-# Rota para pegar um item pelo ID
-@router.get("/items/{item_id}", response_model=schemas.ItemOut)
-def get_item(item_id: int, db: Session = Depends(get_db)):
-    item = crud.get_item(db, item_id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Item não encontrado")
-    return item
+# Rota para pegar um cliente pelo ID
+@router.get("/clientes/{cliente_id}", response_model=schemas.ClienteOut)
+def get_cliente(cliente_id: int, db: Session = Depends(get_db)):
+    cliente = crud.get_cliente(db, cliente_id)
+    if not cliente:
+        raise HTTPException(status_code=404, detail="cliente não encontrado")
+    return cliente
 
-# Rota para deletar um item
-@router.delete("/items/{item_id}")
-def delete_item(item_id: int, db: Session = Depends(get_db)):
-    item = crud.delete_item(db, item_id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Item não encontrado")
-    return {"message": "item deletado com sucesso"}
+# Rota para deletar um cliente
+@router.delete("/clientes/{cliente_id}")
+def delete_cliente(cliente_id: int, db: Session = Depends(get_db)):
+    cliente = crud.delete_cliente(db, cliente_id)
+    if not cliente:
+        raise HTTPException(status_code=404, detail="cliente não encontrado")
+    return {"message": "cliente deletado com sucesso"}
